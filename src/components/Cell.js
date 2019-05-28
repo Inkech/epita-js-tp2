@@ -12,6 +12,38 @@ const cellStyle = {
   cursor: "pointer"
 };
 
-const Cell = () => <div style={cellStyle}>?</div>;
+
+class Cell extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isMouseOver: false,
+    };
+  }
+
+  handleMouseOver = () => {
+    if (this.props.value == null)
+      this.setState({isMouseOver: true});
+  }
+
+  handleMouseOut = () => {
+    this.setState({isMouseOver: false});
+  }
+
+
+
+ 
+  render() {
+    return (
+      <div onMouseOver={this.handleMouseOver}
+           onMouseOut={this.handleMouseOut}
+           onClick={this.props.onClick}
+           style={{...cellStyle, backgroundColor: (this.state.isMouseOver && !this.props.value) ? "yellow" : "white"}}>
+           {this.props.value}
+      </div>
+    );
+  }
+}
 
 export default Cell;
